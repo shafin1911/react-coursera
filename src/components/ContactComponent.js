@@ -18,7 +18,17 @@ class Contact extends Component {
 
   handleSubmit(values) {
     console.log('Current State is: ' + JSON.stringify(values))
-    alert('Current State is: ' + JSON.stringify(values))
+    // alert('Current State is: ' + JSON.stringify(values))
+    // eslint-disable-next-line react/prop-types
+    this.props.postFeedback(
+      values.firstName,
+      values.lastName,
+      values.email,
+      values.telnum,
+      values.agree,
+      values.contactType,
+      values.message
+    )
     // eslint-disable-next-line react/prop-types
     this.props.resetFeedbackForm()
     // event.preventDefault();
