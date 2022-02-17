@@ -19,6 +19,7 @@ import {
   Col
 } from 'reactstrap'
 import { Loading } from './LoadingComponent'
+import { baseUrl } from '../shared/baseUrl'
 
 const required = (val) => val && val.length
 const maxLength = (len) => (val) => !val || val.length <= len
@@ -44,7 +45,7 @@ class CommentForm extends Component {
     console.log('Current State is: ' + JSON.stringify(values))
     //alert('Current State is: ' + JSON.stringify(values))
     this.toggleModal()
-    this.props.addComment(
+    this.props.postComment(
       this.props.dishId,
       values.rating,
       values.author,
@@ -141,7 +142,7 @@ class CommentForm extends Component {
   }
 }
 
-function RenderComments({ comments, addComment, dishId }) {
+function RenderComments({ comments, postComment, dishId }) {
   if (comments) {
     return (
       <div className="col-12 col-md-5 m-1">
@@ -163,7 +164,7 @@ function RenderComments({ comments, addComment, dishId }) {
             )
           })}
         </div>
-        <CommentForm dishId={dishId} addComment={addComment} />
+        <CommentForm dishId={dishId} postComment={postComment} />
       </div>
     )
   } else return <div></div>
@@ -174,7 +175,7 @@ const RenderDish = ({ dish }) => {
     return (
       <div className="col-12 col-md-5 m-1">
         <Card>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
+          <CardImg top src={baseUrl + dish.image} alt={dish.name} />
           <CardBody>
             <CardTitle>{dish.name}</CardTitle>
             <CardText>{dish.description}</CardText>
@@ -221,7 +222,7 @@ const DishDetail = (props) => {
           <RenderDish dish={props.dish} />
           <RenderComments
             comments={props.comments}
-            addComment={props.addComment}
+            postComment={props.postComment}
             dishId={props.dish.id}
           />
         </div>
